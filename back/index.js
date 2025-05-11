@@ -22,8 +22,7 @@ const explonation = {"users":
     {
       "/":"get all users",
       "/me":"give your currect user",
-      "register":"new user registration",
-      ""
+      "register":"new user registration"
     }
   ]
 }

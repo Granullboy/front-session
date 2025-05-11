@@ -13,7 +13,21 @@
       "comment": "Aboba",
       "date": "2025-05-09T15:12:02.535Z",
       "createdAt": "2025-05-09T15:12:53.908Z"
+    },
+    {
+      "id": 2,
+      "user_id": [
+        1
+      ],
+      "amount": 12345,
+      "type": "income",
+      "category_id": [
+        1
+      ],
+      "comment": "",
+      "date": "2025-05-11",
+      "createdAt": "2025-05-11T17:36:59.842Z"
     }
   ],
-  "lastId": 1
+  "lastId": 2
 }
