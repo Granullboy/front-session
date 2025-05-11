@@ -29,6 +29,8 @@ export const Layout = () => {
         {currentUser ? (
           <>
             <button className="text-white bg-transparent border-none " onClick={() => navigate('/dashboard')}>Dashboard</button>
+            <button className="text-white bg-transparent border-none " onClick={() => navigate('/stats')}>Statistics</button>
+            <button className="text-white bg-transparent border-none " onClick={() => navigate('/settings')}>Settings</button>
             <button 
               className="text-white hover:text-gray-300 bg-transparent border-none cursor-pointer"
               onClick={() => navigate('/logout')}

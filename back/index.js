@@ -17,9 +17,20 @@ app.use('/users', require('./routes/user'));
 app.use('/transactions', require('./routes/transactions'));
 app.use('/categories', require('./routes/categories'));
 
+const explonation = {"users":
+  [
+    {
+      "/":"get all users",
+      "/me":"give your currect user",
+      "register":"new user registration",
+      ""
+    }
+  ]
+}
+
 // Root route
 app.get('/', (req, res) => {
-  res.send('Backend is working');
+  res.send(explonation);
 });
 
 // Start server

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { User } from '../types/types';
+import type{ User } from '../types/types';
 
 const API_URL = 'http://localhost:3000/users/';
 
