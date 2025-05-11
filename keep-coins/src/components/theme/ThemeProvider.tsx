@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { ThemeContext } from './ThemeContext';
 import type { Theme, ThemeContextType } from './ThemeContext';
 
-
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [theme, setTheme] = useState<Theme>('light');
 
@@ -17,12 +16,19 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   }, []);
 
   useEffect(() => {
-    document.documentElement.classList.remove('light', 'dark');
-    document.documentElement.classList.add(theme);
+    // ✅ Правильное применение темы
+    if (theme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+
     localStorage.setItem('theme', theme);
+    console.log('[Theme] Applied:', theme);
   }, [theme]);
 
   const toggleTheme = () => {
+    console.log('[Theme] TOGGLE CLICKED');
     setTheme(prev => (prev === 'light' ? 'dark' : 'light'));
   };
 
