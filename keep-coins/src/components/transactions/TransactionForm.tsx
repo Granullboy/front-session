@@ -1,4 +1,4 @@
-import type { Category } from '../../api/categories';
+import type { Category } from '../../types/types';
 
 interface Props {
   type: 'income' | 'expense';
