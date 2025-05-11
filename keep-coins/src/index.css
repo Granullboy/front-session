@@ -4,19 +4,4 @@
   width: 100%;
 }
 
-@layer base {
-  html.dark body {
-    background-color: #0f172a;
-    color: white;
-  }
-
-  body {
-    background-color: white;
-    color: black;
-  }
-}
-
-
-
-  
 
