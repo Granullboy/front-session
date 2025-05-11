@@ -9,6 +9,8 @@ import { HomePage } from './pages/HomePage';
 import { Layout } from './components/Layout';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import { ThemeProvider } from './components/theme/ThemeProvider';
+import { Provider } from 'react-redux';
+import { store } from './redux/store';
 
 const router = createBrowserRouter([
   {
@@ -19,7 +21,7 @@ const router = createBrowserRouter([
       { path: 'logout', element: <Logout /> },
       { path: 'register', element: <Register /> },
       { 
-        element: <ProtectedRoute />, // This will protect all child routes
+        element: <ProtectedRoute />, // Перенаправление не авторизированых пользователей
         children: [
           { index: true, element: <HomePage /> },
           { path: 'dashboard', element: <Dashboard /> },
@@ -33,11 +35,13 @@ const router = createBrowserRouter([
 
 export const App = () => {
   return (
-    <ThemeProvider>
-      <div className="transition-colors duration-300">
-        <RouterProvider router={router}/>
-      </div>
-    </ThemeProvider>
+    <Provider store={store}>
+      <ThemeProvider>
+        <div className="transition-colors duration-300">
+          <RouterProvider router={router}/>
+        </div>
+      </ThemeProvider>
+    </Provider>
   );
 };
 

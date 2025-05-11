@@ -1,39 +1,27 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
-import { getCurrentUser } from '../api/users';
-import { User } from '../types/types';
-import { LoadingScreen } from './LoadingScreen'; // Reuse your loading component
+import { useAppDispatch, useAppSelector } from '../hooks/reduxHooks';
+import { fetchCurrentUser } from '../redux/slices/authSlice';
+import { LoadingScreen } from './LoadingScreen';
 
 export const ProtectedRoute = () => {
-  const [loading, setLoading] = useState(true);
-  const [user, setUser] = useState<User | null>(null);
   const location = useLocation();
+  const dispatch = useAppDispatch();
+  const { user, loading, token } = useAppSelector((state) => state.auth);
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      setLoading(false);
-      return;
+    // Запрашиваем данные пользователя только если есть токен, но нет пользователя
+    if (token && !user) {
+      dispatch(fetchCurrentUser());
     }
+  }, [dispatch, token, user]);
 
-    const verifyAuth = async () => {
-      try {
-        const currentUser = await getCurrentUser(token);
-        setUser(currentUser);
-      } catch (err) {
-        console.error('Authentication failed:', err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    verifyAuth();
-  }, []);
-
-  if (loading) {
+  // Если идет загрузка и есть токен (значит запрос в процессе)
+  if (loading && token) {
     return <LoadingScreen />;
   }
 
+  // Если нет пользователя (и загрузка завершена или токена нет)
   if (!user) {
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
