@@ -16,15 +16,19 @@ app.use(express.json());
 app.use('/users', require('./routes/user'));
 app.use('/transactions', require('./routes/transactions'));
 app.use('/categories', require('./routes/categories'));
+app.use('/api/statistics', require('./routes/statistics'));
+app.use('/api/settings', require('./routes/settings'));
 
 const explonation = {"users":
-  [
-    {
-      "/":"get all users",
-      "/me":"give your currect user",
-      "register":"new user registration"
-    }
-  ]
+  {
+    "/":"get all users",
+    "/me":"give your currect user",
+    "/register":"new user registration"
+  },
+  "transactions": 
+  {
+    "":""
+  }
 }
 
 // Root route
