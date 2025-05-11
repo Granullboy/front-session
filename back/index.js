@@ -16,8 +16,8 @@ app.use(express.json());
 app.use('/users', require('./routes/user'));
 app.use('/transactions', require('./routes/transactions'));
 app.use('/categories', require('./routes/categories'));
-app.use('/api/statistics', require('./routes/statistics'));
-app.use('/api/settings', require('./routes/settings'));
+app.use('/statistics', require('./routes/statistics'));
+app.use('/settings', require('./routes/settings'));
 
 const explonation = {"users":
   {

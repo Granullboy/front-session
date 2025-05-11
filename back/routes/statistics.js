@@ -2,8 +2,6 @@ const express = require('express');
 const router = express.Router();
 const { readData } = require('../utils/dataHelpers');
 
-let { transactions, categories } = getFreshData()
-
 function getFreshData() {
   return {
     transactions: readData('transactions.json')?.transactions || [],
@@ -64,29 +62,52 @@ router.get('/user/:userId', (req, res) => {
 });
 
 // GET статистика по определенной категории
-router.get('/category/:categoryId', (req, res) => {
+router.get('/category/:categoryIds', (req, res) => {
   const { transactions, categories } = getFreshData();
-  const categoryId = parseInt(req.params.categoryId);
   
-  if (!category) {
-    return res.status(404).json({ message: 'Category not found' });
-  }
+  // Разделить идентификаторы категорий, разделенные запятыми, и преобразовать в числа
+  const categoryIds = req.params.categoryIds.split(',').map(id => parseInt(id.trim()));
   
-  const catTransactions = transactions.filter(t => 
-    t.category_id.includes(categoryId)
+  // Проверить наличие всех идентификаторов категорий
+  const invalidCategories = categoryIds.filter(id => 
+    !categories.some(c => c.id === id)
   );
   
-  const catTotal = catTransactions.reduce((sum, t) => sum + t.amount, 0);
+  if (invalidCategories.length > 0) {
+    return res.status(404).json({ 
+      message: 'Some categories not found',
+      invalidCategories 
+    });
+  }
   
-  res.json({
-    category_id: categoryId,
-    category_name: category.name,
-    type: category.type,
-    total_amount: catTotal,
-    transaction_count: catTransactions.length,
-    average_amount: catTotal / (catTransactions.length || 1),
-    transactions: catTransactions
+  // Получить данные по всем запрошенным категориям
+  const categoryStats = categoryIds.map(categoryId => {
+    const category = categories.find(c => c.id === categoryId);
+    const catTransactions = transactions.filter(t => 
+      t.category_id.includes(categoryId)
+    );
+    
+    const catTotal = catTransactions.reduce((sum, t) => sum + t.amount, 0);
+    
+    return {
+      category_id: categoryId,
+      category_name: category.name,
+      type: category.type,
+      total_amount: catTotal,
+      transaction_count: catTransactions.length,
+      average_amount: catTotal / (catTransactions.length || 1),
+      transactions: catTransactions
+    };
   });
+  
+  // Рассчитать общие итоги
+  const combinedStats = {
+    total_amount: categoryStats.reduce((sum, cat) => sum + cat.total_amount, 0),
+    transaction_count: categoryStats.reduce((sum, cat) => sum + cat.transaction_count, 0),
+    categories: categoryStats
+  };
+  
+  res.json(combinedStats);
 });
 
 module.exports = router;
