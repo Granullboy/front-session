@@ -1,15 +1,6 @@
 import axios from 'axios';
+import type { Transaction } from '../types/types';
 const API_URL = 'http://localhost:3000/transactions';
-
-export interface Transaction {
-  id?: number;
-  user_id: number[];
-  amount: number;
-  type: 'income' | 'expense';
-  category_id: number[];
-  comment?: string;
-  date: string;
-}
 
 export const getAllTransactions = async (): Promise<Transaction[]> => {
   const res = await axios.get(`${API_URL}`);

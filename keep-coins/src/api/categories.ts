@@ -1,15 +1,6 @@
 import axios from 'axios';
+import type{ Category } from '../types/types';
 const API_URL = 'http://localhost:3000/categories';
-
-export interface Category {
-  id?: number;
-  user_id: number[];
-  name: string;
-  icon?: string;
-  color?: string;
-  type: 'income' | 'expense';
-  createdAt?: string;
-}
 
 export const getAllCategories = async (): Promise<Category[]> => {
   const res = await axios.get(`${API_URL}`);
