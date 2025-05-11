@@ -8,7 +8,7 @@ export const AuthPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  //const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -24,13 +24,14 @@ export const AuthPage = () => {
 
       if ('token' in response) {
         setAuthToken(response.token);
-        //navigate('/');
+        navigate('/');
       } else {
         setError(response.message || 'Authentication failed');
       }
-    } catch (err) {
+    } catch {
       setError('An unexpected error occurred');
     }
+    
   };
 
   return (

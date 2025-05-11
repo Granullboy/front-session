@@ -1,8 +1,8 @@
 import { Outlet, useNavigate } from 'react-router-dom';
 import { getCurrentUser } from '../api/users';
-import { User } from '../types/types';
+import type{ User } from '../types/types';
 import { useEffect, useState } from 'react';
-import { useTheme } from './theme/ThemeProvider';
+import { useTheme } from '../hooks/useTheme';
 
 export const Layout = () => {
   const navigate = useNavigate();
@@ -16,11 +16,6 @@ export const Layout = () => {
     }
   }, []);
 
-  const handleLogout = () => {
-    localStorage.setItem('token', '')
-    setCurrentUser(null);
-    navigate('/login');
-  };
 
   return (
     <div className="min-h-screen flex flex-col ">
