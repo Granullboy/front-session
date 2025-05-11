@@ -1,36 +1,31 @@
 import { useEffect, useMemo, useState } from 'react';
-import { getTransactionsByUser, createTransaction } from '../api/transactions';
-import { getCategoriesByUser } from '../api/categories';
-import type { Transaction, Category } from '../types/types';
-import { useSelector } from 'react-redux';
-import type { RootState } from '../redux/store';
+import { useAppDispatch, useAppSelector } from '../hooks/reduxHooks';
+import { fetchTransactions } from '../redux/slices/transactionSlice';
+import { fetchCategories } from '../redux/slices/categorySlice';
+import { createTransaction } from '../api/transactions';
 import { TransactionList } from '../components/transactions/TransactionList';
 import { TransactionForm } from '../components/transactions/TransactionForm';
 
 export const Dashboard = () => {
-  const [transactions, setTransactions] = useState<Transaction[]>([]);
-  const [categoriesList, setCategoriesList] = useState<Category[]>([]);
+  const dispatch = useAppDispatch();
+  const { items: transactions } = useAppSelector((state) => state.transactions);
+  const { items: categoriesList } = useAppSelector((state) => state.categories);
+  const token = useAppSelector((state) => state.auth.token);
+
   const [showForm, setShowForm] = useState(false);
   const [type, setType] = useState<'income' | 'expense'>('income');
   const [amount, setAmount] = useState('');
   const [category, setCategory] = useState('');
   const [comment, setComment] = useState('');
 
-  const token = useSelector((state: RootState) => state.auth.token);
   const userId = token ? JSON.parse(atob(token.split('.')[1])).id : null;
 
   useEffect(() => {
-    if (!userId) return;
-
-    const fetchData = async () => {
-      const tx = await getTransactionsByUser(userId);
-      const cats = await getCategoriesByUser(userId);
-      setTransactions(tx);
-      setCategoriesList(cats);
-    };
-
-    fetchData();
-  }, [userId]);
+    if (userId) {
+      dispatch(fetchTransactions());
+      dispatch(fetchCategories());
+    }
+  }, [dispatch, userId]);
 
   const balance = useMemo(() => {
     return transactions.reduce((acc, t) => (t.type === 'income' ? acc + t.amount : acc - t.amount), 0);
@@ -49,8 +44,8 @@ export const Dashboard = () => {
     };
 
     try {
-      const created = await createTransaction(newTransaction);
-      setTransactions([created, ...transactions]);
+      await createTransaction(newTransaction);
+      dispatch(fetchTransactions()); // 🔁 обновим список после создания
     } catch (err) {
       console.error('Create error:', err);
     }

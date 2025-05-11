@@ -27,7 +27,35 @@
       "comment": "",
       "date": "2025-05-11",
       "createdAt": "2025-05-11T17:36:59.842Z"
+    },
+    {
+      "id": 3,
+      "user_id": [
+        1
+      ],
+      "amount": 12123123,
+      "type": "income",
+      "category_id": [
+        1
+      ],
+      "comment": "12312",
+      "date": "2025-05-11",
+      "createdAt": "2025-05-11T20:43:34.533Z"
+    },
+    {
+      "id": 4,
+      "user_id": [
+        1
+      ],
+      "amount": 2472457,
+      "type": "income",
+      "category_id": [
+        1
+      ],
+      "comment": "ОВЛФЦОВЛФЦОВИло",
+      "date": "2025-05-11",
+      "createdAt": "2025-05-11T20:44:25.733Z"
     }
   ],
-  "lastId": 2
+  "lastId": 4
 }
