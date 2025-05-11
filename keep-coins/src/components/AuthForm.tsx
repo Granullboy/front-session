@@ -28,7 +28,7 @@ export const AuthForm: React.FC<AuthFormProps> = ({
   switchAuth,
 }) => {
   return (
-    <div className="max-w-md mx-auto mt-8 p-6 border border-gray-200 rounded-lg shadow-sm sm:p-8">
+    <div className="max-w-md mx-auto mt-8 p-6 bg-white dark:bg-gray-800 text-black dark:text-white border border-gray-200 dark:border-gray-700 rounded-lg shadow-md transition-colors duration-300 sm:p-8">
       <h2 className="text-2xl font-bold text-center mb-6">
         {type === 'login' ? 'Login' : 'Register'}
       </h2>
@@ -41,7 +41,7 @@ export const AuthForm: React.FC<AuthFormProps> = ({
             value={name}
             onChange={(e) => onNameChange?.(e.target.value)}
             required
-            className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="p-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-black dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         )}
         <input
@@ -50,7 +50,7 @@ export const AuthForm: React.FC<AuthFormProps> = ({
           value={email}
           onChange={(e) => onEmailChange(e.target.value)}
           required
-          className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="p-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-black dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
         <input
           type="password"
@@ -59,7 +59,7 @@ export const AuthForm: React.FC<AuthFormProps> = ({
           onChange={(e) => onPasswordChange(e.target.value)}
           required
           minLength={6}
-          className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="p-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-black dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
         <button
           type="submit"
