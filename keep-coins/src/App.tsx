@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Login } from './pages/Login';
 import { Logout } from './pages/Logout';
 import { Register } from './pages/Register';
@@ -6,21 +6,39 @@ import { Dashboard } from './pages/Dashboard';
 import { Stats } from './pages/Stats';
 import { Settings } from './pages/Settings';
 import { HomePage } from './pages/HomePage';
+import { Layout } from './components/Layout';
+import { ProtectedRoute } from './components/ProtectedRoute';
+import { ThemeProvider } from './components/theme/ThemeProvider';
 
-function App() {
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <Layout />,
+    children: [
+      { index: true, element: <HomePage /> },
+      { path: 'login', element: <Login /> },
+      { path: 'logout', element: <Logout /> },
+      { path: 'register', element: <Register /> },
+      { 
+        element: <ProtectedRoute />, // This will protect all child routes
+        children: [
+          { path: 'dashboard', element: <Dashboard /> },
+          { path: 'stats', element: <Stats /> },
+          { path: 'settings', element: <Settings /> },
+        ]
+      },
+    ],
+  },
+]);
+
+export const App = () => {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path='/' element={<HomePage />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/logout" element={<Logout />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/stats" element={<Stats />} />
-        <Route path="/settings" element={<Settings />} />
-      </Routes>
-    </BrowserRouter>
+    <ThemeProvider>
+      <div className="transition-colors duration-300">
+        <RouterProvider router={router}/>
+      </div>
+    </ThemeProvider>
   );
-}
+};
 
 export default App;

@@ -4,6 +4,15 @@
 #root {
   width: 100%;
 }
+/*.dark {
+  @apply bg-gray-900 text-gray-100;
+}
+
+.dark nav {
+  @apply bg-gray-800;
+}*/
+
+
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;

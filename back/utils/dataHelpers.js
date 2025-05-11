@@ -18,7 +18,9 @@ function readData(fileName) {
       return null;
     }
     const data = fs.readFileSync(filePath, 'utf8');
-    return JSON.parse(data);
+    const parsedJson = JSON.parse(data);
+    //console.log(parsedJson);
+    return parsedJson;
   } catch (err) {
     console.error(`Error reading ${fileName}:`, err);
     return [];
