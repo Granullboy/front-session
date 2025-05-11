@@ -8,9 +8,6 @@ import { Settings } from './pages/Settings';
 import { HomePage } from './pages/HomePage';
 import { Layout } from './components/Layout';
 import { ProtectedRoute } from './components/ProtectedRoute';
-import { ThemeProvider } from './components/theme/ThemeProvider';
-import { Provider } from 'react-redux';
-import { store } from './redux/store';
 
 const router = createBrowserRouter([
   {
@@ -35,14 +32,11 @@ const router = createBrowserRouter([
 
 export const App = () => {
   return (
-    <Provider store={store}>
-      <ThemeProvider>
-        <div className="transition-colors duration-300">
-          <RouterProvider router={router}/>
-        </div>
-      </ThemeProvider>
-    </Provider>
+    <div className="transition-colors duration-300">
+      <RouterProvider router={router}/>
+    </div>
   );
 };
+
 
 export default App;

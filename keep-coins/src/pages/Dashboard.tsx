@@ -28,7 +28,10 @@ export const Dashboard = () => {
   }, [dispatch, userId]);
 
   const balance = useMemo(() => {
-    return transactions.reduce((acc, t) => (t.type === 'income' ? acc + t.amount : acc - t.amount), 0);
+    return transactions.reduce(
+      (acc, t) => (t.type === 'income' ? acc + t.amount : acc - t.amount),
+      0
+    );
   }, [transactions]);
 
   const handleAddTransaction = async () => {
@@ -45,7 +48,7 @@ export const Dashboard = () => {
 
     try {
       await createTransaction(newTransaction);
-      dispatch(fetchTransactions()); // 🔁 обновим список после создания
+      dispatch(fetchTransactions());
     } catch (err) {
       console.error('Create error:', err);
     }
@@ -58,12 +61,16 @@ export const Dashboard = () => {
   };
 
   return (
-    <div className="max-w-3xl mx-auto px-4 py-6">
+    <div className="max-w-3xl mx-auto px-4 py-6 bg-white dark:bg-slate-900 min-h-screen transition-colors text-black dark:text-white">
       <h2 className="text-3xl font-bold text-center mb-6">Dashboard</h2>
 
-      <div className="bg-white shadow rounded-md p-4 mb-6">
+      <div className="bg-white dark:bg-gray-800 shadow rounded-md p-4 mb-6 transition-colors">
         <p className="text-lg font-medium">Current Balance:</p>
-        <p className={`text-2xl font-bold ${balance >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+        <p
+          className={`text-2xl font-bold ${
+            balance >= 0 ? 'text-green-600' : 'text-red-600'
+          }`}
+        >
           {balance} ₸
         </p>
       </div>
@@ -74,7 +81,7 @@ export const Dashboard = () => {
         {!showForm ? (
           <button
             onClick={() => setShowForm(true)}
-            className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+            className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 transition-colors"
           >
             + Add Transaction
           </button>

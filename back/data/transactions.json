@@ -55,7 +55,35 @@
       "comment": "ОВЛФЦОВЛФЦОВИло",
       "date": "2025-05-11",
       "createdAt": "2025-05-11T20:44:25.733Z"
+    },
+    {
+      "id": 5,
+      "user_id": [
+        1
+      ],
+      "amount": 1312312,
+      "type": "income",
+      "category_id": [
+        1
+      ],
+      "comment": "121",
+      "date": "2025-05-11",
+      "createdAt": "2025-05-11T22:09:59.149Z"
+    },
+    {
+      "id": 6,
+      "user_id": [
+        1
+      ],
+      "amount": 13132313,
+      "type": "income",
+      "category_id": [
+        1
+      ],
+      "comment": "11",
+      "date": "2025-05-11",
+      "createdAt": "2025-05-11T22:10:08.474Z"
     }
   ],
-  "lastId": 4
+  "lastId": 6
 }
