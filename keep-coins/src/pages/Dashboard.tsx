@@ -1,8 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { getTransactionsByUser, createTransaction } from '../api/transactions';
 import { getCategoriesByUser } from '../api/categories';
-import type { Transaction } from '../api/transactions';
-import type { Category } from '../api/categories';
+import type { Transaction, Category } from '../types/types';
 import { useSelector } from 'react-redux';
 import type { RootState } from '../redux/store';
 import { TransactionList } from '../components/transactions/TransactionList';
