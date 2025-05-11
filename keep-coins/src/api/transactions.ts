@@ -1,5 +1,6 @@
 import axios from 'axios';
-import type{ Transaction } from '../types/types';
+import type { Transaction } from '../types/types';
+
 const API_URL = 'http://localhost:3000/transactions';
 
 export const getAllTransactions = async (): Promise<Transaction[]> => {
@@ -9,6 +10,11 @@ export const getAllTransactions = async (): Promise<Transaction[]> => {
 
 export const getTransactionsByUser = async (userId: number): Promise<Transaction[]> => {
   const res = await axios.get(`${API_URL}/user/${userId}`);
+  return res.data;
+};
+
+export const getTransactionById = async (id: number): Promise<Transaction> => {
+  const res = await axios.get(`${API_URL}/${id}`);
   return res.data;
 };
 

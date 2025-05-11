@@ -10,7 +10,18 @@
       "color": "red",
       "type": "income",
       "createdAt": "2025-05-09T15:23:17.685Z"
+    },
+    {
+      "id": 2,
+      "user_id": [
+        1
+      ],
+      "name": "Home",
+      "icon": "💼",
+      "color": "green",
+      "type": "income",
+      "createdAt": "2025-05-11T21:24:49.731Z"
     }
   ],
-  "lastId": 1
+  "lastId": 2
 }

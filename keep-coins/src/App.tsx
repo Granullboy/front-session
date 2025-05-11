@@ -12,6 +12,7 @@ import { ThemeProvider } from './components/theme/ThemeProvider';
 import { Provider } from 'react-redux';
 import { store } from './redux/store';
 
+
 const router = createBrowserRouter([
   {
     path: '/',
