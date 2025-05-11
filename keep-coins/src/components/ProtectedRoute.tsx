@@ -35,7 +35,6 @@ export const ProtectedRoute = () => {
   }
 
   if (!user) {
-    // Redirect to login page, preserving the location they came from
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 

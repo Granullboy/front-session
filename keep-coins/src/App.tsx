@@ -15,13 +15,13 @@ const router = createBrowserRouter([
     path: '/',
     element: <Layout />,
     children: [
-      { index: true, element: <HomePage /> },
       { path: 'login', element: <Login /> },
       { path: 'logout', element: <Logout /> },
       { path: 'register', element: <Register /> },
       { 
         element: <ProtectedRoute />, // This will protect all child routes
         children: [
+          { index: true, element: <HomePage /> },
           { path: 'dashboard', element: <Dashboard /> },
           { path: 'stats', element: <Stats /> },
           { path: 'settings', element: <Settings /> },

@@ -5,18 +5,18 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const { readData, writeData } = require('../utils/dataHelpers');
 
-const JWT_SECRET = process.env.JWT_SECRET;
+const JWT_SECRET = 'Aboba';
 
 // Mock database (replace with real DB in production)
 let {users, lastId} = readData('users.json');
+
 function saveUsers() {
-  writeData('users.json', users);
+  writeData('users.json', {users, lastId});
 }
 
 // Register new user
 router.post('/register', (req, res) => {
   const { name, email, password } = req.body;
-
   // Check if user exists
   if (users.some(user => user.email === email)) {
     return res.status(400).json({ error: 'User already exists' });
