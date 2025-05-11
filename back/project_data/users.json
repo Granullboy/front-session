@@ -1,0 +1,23 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Admin",
+      "email": "admin@example.com",
+      "password": "$2b$08$ndhwJsNJDo.PBESejVuU6.31PxlUGAiS/kaj6dggDWtXN91jqecpm"
+    },
+    {
+      "id": 4,
+      "name": "Admin",
+      "email": "abobaemail@gmail.com",
+      "password": "$2b$08$zO6AYKq0/1KiZjOt0Voz..4SFxTDauTgyy9IwcnBQjLGPBekrD6Iy"
+    },
+    {
+      "id": 5,
+      "name": "name",
+      "email": "aruzhan@gmail.com",
+      "password": "$2b$08$.tiGH1R5BI2qaLNwuw1khO9cz0E01bssWexRJZzx3M0FBQqiv8XlG"
+    }
+  ],
+  "lastId": 5
+}
