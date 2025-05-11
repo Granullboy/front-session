@@ -1,0 +1,20 @@
+{
+  "users":[
+  {
+    "id": 1,
+    "name": "Admin",
+    "email": "admin@example.com",
+    "isVerified": true,
+    "password": "$2b$08$ndhwJsNJDo.PBESejVuU6.31PxlUGAiS/kaj6dggDWtXN91jqecpm"
+  },
+  {
+    "id": 4,
+    "name": "Admin",
+    "email": "abobaemail@gmail.com",
+    "password": "$2b$08$zO6AYKq0/1KiZjOt0Voz..4SFxTDauTgyy9IwcnBQjLGPBekrD6Iy",
+    "isVerified": false,
+    "verificationToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFib2JhZW1haWxAZ21haWwuY29tIiwiaWF0IjoxNzQ2ODA1MzQ5LCJleHAiOjE3NDY4OTE3NDl9.QRimlc9SpplRqnjS26MWUbbeDYb3MtupzkG9zDl98D8"
+  }
+  ],
+  "lastId": 4
+}

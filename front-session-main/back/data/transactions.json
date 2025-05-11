@@ -1,0 +1,61 @@
+{
+  "transactions": [
+    {
+      "id": 1,
+      "user_id": [
+        1
+      ],
+      "amount": 100000000,
+      "type": "income",
+      "category_id": [
+        1
+      ],
+      "comment": "Aboba",
+      "date": "2025-05-09T15:12:02.535Z",
+      "createdAt": "2025-05-09T15:12:53.908Z"
+    },
+    {
+      "id": 2,
+      "user_id": [
+        1
+      ],
+      "amount": 19999,
+      "type": "income",
+      "category_id": [
+        0
+      ],
+      "comment": "111",
+      "date": "2025-05-11",
+      "createdAt": "2025-05-11T12:29:52.961Z"
+    },
+    {
+      "id": 3,
+      "user_id": [
+        1
+      ],
+      "amount": 4533,
+      "type": "income",
+      "category_id": [
+        1
+      ],
+      "comment": "лвтлытва",
+      "date": "2025-05-11",
+      "createdAt": "2025-05-11T12:41:48.807Z"
+    },
+    {
+      "id": 4,
+      "user_id": [
+        1
+      ],
+      "amount": 1123123,
+      "type": "income",
+      "category_id": [
+        1
+      ],
+      "comment": "qwwqe",
+      "date": "2025-05-11",
+      "createdAt": "2025-05-11T12:55:26.748Z"
+    }
+  ],
+  "lastId": 4
+}

@@ -1,0 +1,28 @@
+{
+  "categories": [
+    {
+      "id": 1,
+      "user_id": [
+        1
+      ],
+      "name": "Test",
+      "icon": "TestImage",
+      "color": "red",
+      "type": "income",
+      "createdAt": "2025-05-09T15:23:17.685Z"
+      
+    },
+    {
+      "id": 2,
+      "user_id": [
+        1
+      ],
+      "name": "Test2",
+      "icon": "TestImage",
+      "color": "red",
+      "type": "expense",
+      "createdAt": "2025-05-09T15:23:17.685Z"
+    }
+  ],
+  "lastId": 1
+}
