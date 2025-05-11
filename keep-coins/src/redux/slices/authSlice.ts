@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { loginUser, registerUser, getCurrentUser, setAuthToken } from '../../api/users';
-import type{ User } from '../../types/types';
+import type { User } from '../../types/types';
 
 // Типы состояния
 interface AuthState {
@@ -10,10 +10,13 @@ interface AuthState {
   error: string | null;
 }
 
+// Получаем токен из localStorage
+const tokenFromStorage = localStorage.getItem('token');
+
 const initialState: AuthState = {
   user: null,
-  token: localStorage.getItem('token'),
-  loading: false,
+  token: tokenFromStorage,
+  loading: !!tokenFromStorage, // Включаем загрузку, если есть токен
   error: null,
 };
 
@@ -52,10 +55,11 @@ export const register = createAsyncThunk(
 export const fetchCurrentUser = createAsyncThunk('auth/me', async (_, thunkAPI) => {
   const token = localStorage.getItem('token');
   if (!token) return thunkAPI.rejectWithValue('No token found');
+
   try {
     const user = await getCurrentUser(token);
     return user ?? thunkAPI.rejectWithValue('User not found');
-  } catch (error) {
+  } catch {
     return thunkAPI.rejectWithValue('Failed to fetch user');
   }
 });
@@ -87,8 +91,17 @@ const authSlice = createSlice({
         state.loading = false;
         state.error = action.payload as string;
       })
+      .addCase(fetchCurrentUser.pending, (state) => {
+        state.loading = true;
+      })
       .addCase(fetchCurrentUser.fulfilled, (state, action) => {
+        state.loading = false;
         state.user = action.payload;
+      })
+      .addCase(fetchCurrentUser.rejected, (state, action) => {
+        state.loading = false;
+        state.user = null;
+        state.error = action.payload as string;
       })
       .addCase(register.fulfilled, (state, action) => {
         state.token = action.payload.token;

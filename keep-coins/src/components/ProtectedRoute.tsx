@@ -10,21 +10,22 @@ export const ProtectedRoute = () => {
   const { user, loading, token } = useAppSelector((state) => state.auth);
 
   useEffect(() => {
-    // Запрашиваем данные пользователя только если есть токен, но нет пользователя
+    // Запрашиваем данные пользователя, если есть токен, но user ещё не загружен
     if (token && !user) {
       dispatch(fetchCurrentUser());
     }
   }, [dispatch, token, user]);
 
-  // Если идет загрузка и есть токен (значит запрос в процессе)
-  if (loading && token) {
+  // Пока идёт загрузка пользователя при наличии токена
+  if (token && !user && loading) {
     return <LoadingScreen />;
   }
 
-  // Если нет пользователя (и загрузка завершена или токена нет)
-  if (!user) {
+  // Если токена нет или пользователь не авторизован после загрузки
+  if (!token || (!user && !loading)) {
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
+  // Пользователь авторизован — отображаем защищённый маршрут
   return <Outlet />;
 };

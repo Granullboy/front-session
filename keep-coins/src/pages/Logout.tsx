@@ -10,7 +10,7 @@ export const Logout = () => {
   useEffect(() => {
     dispatch(logout());
     navigate('/login');
-  }, []);
+  }, [dispatch, navigate]);
 
   return (
     <div className="max-w-md mx-auto mt-8 p-6 border border-gray-200 rounded-lg shadow-sm sm:p-8">

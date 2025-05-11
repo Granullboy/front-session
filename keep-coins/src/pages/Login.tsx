@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../hooks/reduxhooks';
+import { useAppDispatch, useAppSelector } from '../hooks/reduxHooks';
 import { login } from '../redux/slices/authSlice';
 import { AuthForm } from '../components/AuthForm';
 import { LoadingScreen } from '../components/LoadingScreen';
