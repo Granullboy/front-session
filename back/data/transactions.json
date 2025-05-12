@@ -1,112 +1,62 @@
 {
   "transactions": [
     {
+      "id": 1,
+      "user_id": [
+        1
+      ],
+      "amount": 54847000,
+      "type": "income",
+      "category_id": [
+        1
+      ],
+      "comment": "Aboba",
+      "date": "2025-05-09T15:12:02.535Z",
+      "createdAt": "2025-05-09T15:12:53.908Z"
+    },
+    {
+      "id": 2,
+      "user_id": [
+        1
+      ],
+      "amount": 79999,
+      "type": "expense",
+      "category_id": [
+        4,
+        8
+      ],
+      "comment": "",
+      "date": "2025-05-12",
+      "createdAt": "2025-05-12T05:10:48.232Z"
+    },
+    {
+      "id": 3,
+      "user_id": [
+        1
+      ],
+      "amount": 9885454,
+      "type": "expense",
+      "category_id": [
+        7
+      ],
+      "comment": " бла бла бла",
+      "date": "2025-05-12",
+      "createdAt": "2025-05-12T05:36:16.065Z"
+    },
+    {
       "id": 4,
       "user_id": [
         1
       ],
-      "amount": 2472457,
+      "amount": 4545496,
       "type": "income",
       "category_id": [
-        1,
-        2,
-        4,
-        3,
         6
       ],
-      "comment": "ОВЛФЦОВЛФЦОВИло",
-      "date": "2025-05-11",
-      "createdAt": "2025-05-11T20:44:25.733Z"
-    },
-    {
-      "id": 5,
-      "user_id": [
-        1
-      ],
-      "amount": 131231211111,
-      "type": "income",
-      "category_id": [
-        1
-      ],
-      "comment": "121",
-      "date": "2025-05-11",
-      "createdAt": "2025-05-11T22:09:59.149Z"
-    },
-    {
-      "id": 6,
-      "user_id": [
-        1
-      ],
-      "amount": 13132313111,
-      "type": "income",
-      "category_id": [
-        1
-      ],
-      "comment": "11",
-      "date": "2025-05-11",
-      "createdAt": "2025-05-11T22:10:08.474Z"
-    },
-    {
-      "id": 10,
-      "user_id": [
-        1
-      ],
-      "amount": 1919,
-      "type": "income",
-      "category_id": [
-        3,
-        2
-      ],
-      "comment": "dawd",
+      "comment": "",
       "date": "2025-05-12",
-      "createdAt": "2025-05-12T01:55:28.947Z"
-    },
-    {
-      "id": 11,
-      "user_id": [
-        1
-      ],
-      "amount": 11111,
-      "type": "income",
-      "category_id": [
-        4
-      ],
-      "comment": "wdwqd",
-      "date": "2025-05-12",
-      "createdAt": "2025-05-12T02:00:14.546Z"
-    },
-    {
-      "id": 12,
-      "user_id": [
-        1
-      ],
-      "amount": 1212112,
-      "type": "expense",
-      "category_id": [
-        5,
-        4,
-        3,
-        2,
-        1
-      ],
-      "comment": "edwqdqwd",
-      "date": "2025-05-12",
-      "createdAt": "2025-05-12T02:01:09.730Z"
-    },
-    {
-      "id": 13,
-      "user_id": [
-        1
-      ],
-      "amount": 123123123,
-      "type": "income",
-      "category_id": [
-        1
-      ],
-      "comment": "wqdqwkdmqw",
-      "date": "2025-05-12",
-      "createdAt": "2025-05-12T02:02:19.821Z"
+      "createdAt": "2025-05-12T05:37:08.577Z"
     }
   ],
-  "lastId": 13
+  "lastId": 4
 }

@@ -71,7 +71,17 @@
       "color": "#ffffff",
       "type": "expense",
       "createdAt": "2025-05-12T03:31:45.390Z"
+    },
+    {
+      "id": 8,
+      "user_id": [
+        1
+      ],
+      "name": "Sport",
+      "color": "#000000",
+      "type": "expense",
+      "createdAt": "2025-05-12T05:10:42.775Z"
     }
   ],
-  "lastId": 7
+  "lastId": 8
 }
