@@ -1,19 +1,38 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import type { Transaction } from '../../types/types';
-import axios from 'axios';
-import { deleteTransaction, updateTransaction } from '../../api/transactions';
+import {
+  getAllTransactions,
+  getTransactionsByUser,
+  createTransaction as createTransactionApi,
+  deleteTransaction as deleteTransactionApi,
+  updateTransaction as updateTransactionApi
+} from '../../api/transactions';
 
-const API_URL = 'http://localhost:3000/transactions';
+export const fetchTransactions = createAsyncThunk(
+  'transactions/fetchAll',
+  async () => {
+    return await getAllTransactions();
+  }
+);
 
-export const fetchTransactions = createAsyncThunk('transactions/fetchAll', async () => {
-  const response = await axios.get<Transaction[]>(API_URL);
-  return response.data;
-});
+export const fetchUserTransactions = createAsyncThunk(
+  'transactions/fetchByUser',
+  async (userId: number) => {
+    return await getTransactionsByUser(userId);
+  }
+);
+
+export const addTransaction = createAsyncThunk(
+  'transactions/create',
+  async (transaction: Omit<Transaction, 'id'>) => {
+    return await createTransactionApi(transaction);
+  }
+);
 
 export const removeTransaction = createAsyncThunk(
   'transactions/delete',
   async (id: number) => {
-    await deleteTransaction(id);
+    await deleteTransactionApi(id);
     return id;
   }
 );
@@ -21,8 +40,7 @@ export const removeTransaction = createAsyncThunk(
 export const editTransaction = createAsyncThunk(
   'transactions/edit',
   async ({ id, data }: { id: number; data: Partial<Transaction> }) => {
-    const updated = await updateTransaction(id, data);
-    return updated;
+    return await updateTransactionApi(id, data);
   }
 );
 
@@ -55,6 +73,21 @@ const transactionSlice = createSlice({
       .addCase(fetchTransactions.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message || 'Failed to fetch transactions';
+      })
+      .addCase(fetchUserTransactions.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchUserTransactions.fulfilled, (state, action) => {
+        state.loading = false;
+        state.items = action.payload;
+      })
+      .addCase(fetchUserTransactions.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message || 'Failed to fetch user transactions';
+      })
+      .addCase(addTransaction.fulfilled, (state, action) => {
+        state.items.push(action.payload);
       })
       .addCase(removeTransaction.fulfilled, (state, action) => {
         state.items = state.items.filter(t => t.id !== action.payload);

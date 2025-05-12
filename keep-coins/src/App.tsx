@@ -23,13 +23,13 @@ const router = createBrowserRouter([
       { path: 'login', element: <Login /> },
       { path: 'logout', element: <Logout /> },
       { path: 'register', element: <Register /> },
-      { path: 'category', element: <CategoryPage /> },
       {
         element: <ProtectedRoute />,
         children: [
           { index: true, element: <HomePage /> },
           { path: 'dashboard', element: <Dashboard /> },
-          { path: 'dashboard/:id', element: <TransactionDetail /> }, // 👈 добавь это
+          { path: 'dashboard/:id', element: <TransactionDetail /> },
+          { path: 'category', element: <CategoryPage /> },
           { path: 'stats', element: <Stats /> },
           { path: 'settings', element: <Settings /> },
           { path: 'edit-transaction/:id', element: <EditTransaction /> },

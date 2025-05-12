@@ -16,7 +16,6 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   }, []);
 
   useEffect(() => {
-    // ✅ Правильное применение темы
     if (theme === 'dark') {
       document.documentElement.classList.add('dark');
     } else {
@@ -24,11 +23,9 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     }
 
     localStorage.setItem('theme', theme);
-    console.log('[Theme] Applied:', theme);
   }, [theme]);
 
   const toggleTheme = () => {
-    console.log('[Theme] TOGGLE CLICKED');
     setTheme(prev => (prev === 'light' ? 'dark' : 'light'));
   };
 

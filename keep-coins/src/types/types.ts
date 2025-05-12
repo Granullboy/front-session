@@ -64,3 +64,31 @@ export interface CategoryStatistics extends CategorySummary {
   average_amount: number;
   transactions: Transaction[];
 }
+
+export interface UserCategoriesStatsRequest {
+  userId: number;
+  categoryIds: number[] | string;
+}
+
+export interface UserCategoriesStatsResponse {
+  user_id: number;
+  total_amount: number;
+  transaction_count: number;
+  categories: CategoryStatistics[];
+}
+
+export interface MonthlyStatistics {
+  user_id: number;
+  total_transactions: number;
+  total_amount: number;
+  months: MonthStatistics[];
+}
+
+export interface MonthStatistics {
+  month: string; // Формат "YYYY-MM"
+  total_amount: number;
+  transaction_count: number;
+  average_amount: number;
+  categories: CategoryStatistics[];
+  transactions?: Transaction[]; // Опционально, если нужны детали транзакций
+}
