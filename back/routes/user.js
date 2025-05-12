@@ -122,4 +122,16 @@ router.get('/JWT_SECRET', (req, res) => {
   res.json(JWT_SECRET);
 });
 
+router.post('/verify-password', authenticateToken, (req, res) => {
+  const { email, password } = req.body;
+  const user = users.find(user => user.email === email);
+  
+  if (!user) {
+    return res.status(404).json({ error: 'User not found', valid: false });
+  }
+
+  const passwordValid = bcrypt.compareSync(password, user.password);
+  res.json({ valid: passwordValid });
+});
+
 module.exports = router;

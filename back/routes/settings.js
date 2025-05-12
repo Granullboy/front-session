@@ -3,7 +3,7 @@ const router = express.Router();
 const { readData, writeData } = require('../utils/dataHelpers');
 
 // Initialize settings data
-let {settings, lastId} = readData('settings.json') || { settings: [], lastId: 0 };
+let {settings, lastId} = /*readData('settings.json') ||*/ { settings: [], lastId: 0 };
 
 function saveSettings() {
   writeData('settings.json', {settings, lastId});
@@ -38,12 +38,10 @@ router.put('/update/:userId', (req, res) => {
     settings.push(userSettings);
   } else {
     // Update existing settings
-    const { currency, language, theme, notification_preferences } = req.body;
+    const { currency, language, theme } = req.body;
     userSettings.currency = currency || userSettings.currency;
     userSettings.language = language || userSettings.language;
     userSettings.theme = theme || userSettings.theme;
-    userSettings.notification_preferences = notification_preferences || 
-      userSettings.notification_preferences;
   }
   
   saveSettings();

@@ -34,7 +34,8 @@ const explonation = {
     "/:id": "GET specific transaction by ID",
     "/new-transaction": "POST create new transaction",
     "/update/:id": "PUT update existing transaction",
-    "/delete/:id": "DELETE remove transaction"
+    "/delete/:id": "DELETE remove transaction",
+    "/verify-password": "POST change password"
   },
   "categories": {
     "/": "GET all categories",
