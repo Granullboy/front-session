@@ -1,5 +1,5 @@
 export interface User {
-  id: string;
+  id: number; // 👈 тип должен быть number
   name: string;
   email: string;
 }
@@ -26,6 +26,8 @@ export interface Category {
 
 export interface UserSettings {
   id?: number;
+  name: string;       
+  email: string;  
   user_id: number;
   currency: string;
   language: string;

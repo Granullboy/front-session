@@ -1,13 +1,14 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import type { UserSettings } from '../../types/types';
-import axios from 'axios';
+import {
+  getUserSettings,
+  updateUserSettings,
+  verifyPassword as verifyPasswordAPI,
+} from '../../api/settings';
 
-const API_URL = 'http://localhost:3000/settings';
-const USERS_API_URL = 'http://localhost:3000/users';
-
-// Separate update types
 type SecureUpdate = {
   userId: number;
+  email: string;
   settings: Partial<UserSettings>;
   password: string;
 };
@@ -19,49 +20,49 @@ type RegularUpdate = {
 
 export const fetchUserSettings = createAsyncThunk(
   'settings/fetchUserSettings',
-  async (userId: number) => {
-    const response = await axios.get<UserSettings>(`${API_URL}/user/${userId}`);
-    return response.data;
+  async (userId: number, { rejectWithValue }) => {
+    try {
+      return await getUserSettings(userId);
+    } catch {
+      return rejectWithValue('Failed to fetch user settings');
+    }
   }
 );
 
 export const verifyPassword = createAsyncThunk(
   'settings/verifyPassword',
-  async ({ email, password }: { email: string; password: string }, { rejectWithValue }) => {
+  async (
+    { email, password }: { email: string; password: string },
+    { rejectWithValue }
+  ) => {
     try {
-      const response = await axios.post<{ valid: boolean }>(
-        `${USERS_API_URL}/verify-password`, 
-        { email, password }
-      );
-      return response.data.valid;
-    } catch (error: any) {
-      return rejectWithValue(error.response?.data?.error || 'Failed to verify password');
+      const isValid = await verifyPasswordAPI(email, password);
+      if (!isValid) {
+        return rejectWithValue('Invalid password');
+      }
+      return true;
+    } catch {
+      return rejectWithValue('Failed to verify password');
     }
   }
 );
 
 export const updateSecureSettings = createAsyncThunk(
   'settings/updateSecureSettings',
-  async ({ userId, settings, password }: SecureUpdate, { rejectWithValue }) => {
+  async (
+    { userId, email, settings, password }: SecureUpdate,
+    { rejectWithValue }
+  ) => {
     try {
-      // Verify password first
-      const verifyResponse = await axios.post<{ valid: boolean }>(
-        `${USERS_API_URL}/verify-password`,
-        { email: settings.email, password }
-      );
-
-      if (!verifyResponse.data.valid) {
+      const isValid = await verifyPasswordAPI(email, password);
+      if (!isValid) {
         return rejectWithValue('Invalid password');
       }
 
-      // Then update settings
-      const response = await axios.put<UserSettings>(
-        `${API_URL}/update/${userId}`,
-        settings
-      );
-      return response.data;
-    } catch (error: any) {
-      return rejectWithValue(error.response?.data?.error || 'Failed to update settings');
+      const updated = await updateUserSettings(userId, settings);
+      return updated;
+    } catch {
+      return rejectWithValue('Failed to update settings');
     }
   }
 );
@@ -70,13 +71,9 @@ export const updateRegularSettings = createAsyncThunk(
   'settings/updateRegularSettings',
   async ({ userId, settings }: RegularUpdate, { rejectWithValue }) => {
     try {
-      const response = await axios.put<UserSettings>(
-        `${API_URL}/update/${userId}`,
-        settings
-      );
-      return response.data;
-    } catch (error: any) {
-      return rejectWithValue(error.response?.data?.error || 'Failed to update settings');
+      return await updateUserSettings(userId, settings);
+    } catch {
+      return rejectWithValue('Failed to update settings');
     }
   }
 );
@@ -108,7 +105,6 @@ const settingsSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      // Fetch Settings
       .addCase(fetchUserSettings.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -119,27 +115,23 @@ const settingsSlice = createSlice({
       })
       .addCase(fetchUserSettings.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.error.message || 'Failed to fetch settings';
+        state.error = action.payload as string;
       })
-      
-      // Verify Password
+
       .addCase(verifyPassword.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(verifyPassword.fulfilled, (state, action) => {
+      .addCase(verifyPassword.fulfilled, (state) => {
         state.loading = false;
-        state.passwordVerified = action.payload;
-        if (!action.payload) {
-          state.error = 'Invalid password';
-        }
+        state.passwordVerified = true;
       })
       .addCase(verifyPassword.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload as string || 'Failed to verify password';
+        state.passwordVerified = false;
+        state.error = action.payload as string;
       })
-      
-      // Update Secure Settings
+
       .addCase(updateSecureSettings.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -151,10 +143,9 @@ const settingsSlice = createSlice({
       })
       .addCase(updateSecureSettings.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload as string || 'Failed to update settings';
+        state.error = action.payload as string;
       })
-      
-      // Update Regular Settings
+
       .addCase(updateRegularSettings.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -165,7 +156,7 @@ const settingsSlice = createSlice({
       })
       .addCase(updateRegularSettings.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload as string || 'Failed to update settings';
+        state.error = action.payload as string;
       });
   },
 });

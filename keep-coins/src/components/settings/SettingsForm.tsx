@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 interface SettingsFormProps {
   currentUser: {
     name: string;
@@ -22,7 +20,6 @@ interface SettingsFormProps {
 }
 
 export const SettingsForm = ({
-  currentUser,
   editMode,
   name,
   email,

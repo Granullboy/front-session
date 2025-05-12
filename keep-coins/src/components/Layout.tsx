@@ -1,13 +1,10 @@
 import { Outlet, useNavigate } from 'react-router-dom';
-import { getCurrentUser } from '../api/users';
-import type { User } from '../types/types';
-import { useEffect, useState } from 'react';
 import { useTheme } from '../hooks/useTheme';
-import { useAppDispatch, useAppSelector } from '../hooks/reduxHooks';
+import { useAppSelector } from '../hooks/reduxHooks';
 
 export const Layout = () => {
   const navigate = useNavigate();
-  const currentUser = useAppSelector((state) => state.auth.user)
+  const currentUser = useAppSelector((state) => state.auth.user);
   const { toggleTheme, themeName } = useTheme();
 
   return (
@@ -19,21 +16,24 @@ export const Layout = () => {
         >
           <h3 className="text-2xl font-bold">Keep Coins</h3>
         </button>
+
         <div className="flex items-center gap-4 mr-4">
           {currentUser ? (
             <>
               <button className="px-2 py-3 bg-gray-200 text-black dark:bg-gray-800 dark:text-white rounded hover:bg-gray-300 dark:hover:bg-gray-700 transition" onClick={() => navigate('/dashboard')}>Dashboard</button>
               <button className="px-2 py-3 bg-gray-200 text-black dark:bg-gray-800 dark:text-white rounded hover:bg-gray-300 dark:hover:bg-gray-700 transition" onClick={() => navigate('/stats')}>Statistics</button>
               <button className="px-2 py-3 bg-gray-200 text-black dark:bg-gray-800 dark:text-white rounded hover:bg-gray-300 dark:hover:bg-gray-700 transition" onClick={() => navigate('/settings')}>Settings</button>
-              <button className="px-2 py-3 bg-gray-200 text-black dark:bg-gray-800 dark:text-white rounded hover:bg-gray-300 dark:hover:bg-gray-700 transition" onClick={() => navigate('/logout')} > Logout </button>
+              <button className="px-2 py-3 bg-gray-200 text-black dark:bg-gray-800 dark:text-white rounded hover:bg-gray-300 dark:hover:bg-gray-700 transition" onClick={() => navigate('/logout')}>Logout</button>
             </>
           ) : (
             <>
               <button className="px-4 py-2 bg-gray-200 text-black dark:bg-gray-800 dark:text-white rounded hover:bg-gray-300 dark:hover:bg-gray-700 transition"
-                onClick={() => navigate('/login')} >Login</button>
+                onClick={() => navigate('/login')}>Login</button>
 
-            <button className="px-4 py-2 bg-gray-200 text-black dark:bg-gray-800 dark:text-white rounded hover:bg-gray-300 dark:hover:bg-gray-700 transition text-2xl"
-              onClick={toggleTheme} title="Toggle Theme" >{themeName === 'dark' ? '☀️' : '🌙'}</button>
+              <button className="px-4 py-2 bg-gray-200 text-black dark:bg-gray-800 dark:text-white rounded hover:bg-gray-300 dark:hover:bg-gray-700 transition text-2xl"
+                onClick={toggleTheme} title="Toggle Theme">
+                {themeName === 'dark' ? '☀️' : '🌙'}
+              </button>
             </>
           )}
         </div>

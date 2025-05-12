@@ -30,7 +30,9 @@ export const verifyPassword = async (email: string, password: string): Promise<b
 // Default settings can be used as fallback
 export const defaultSettings: UserSettings = {
   user_id: -1,
+  name: '',
+  email: '',
   currency: 'KZT',
   language: 'en',
-  theme: 'dark'
+  theme: 'dark',
 };

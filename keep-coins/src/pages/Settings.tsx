@@ -2,23 +2,18 @@ import { useState, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../hooks/reduxHooks';
 import { 
   fetchUserSettings, 
-  updateSettings,
-  verifyPassword,
+  updateSecureSettings,
   clearPasswordVerification
 } from '../redux/slices/settingsSlice';
-import { SettingsForm, ThemeToggle, CurrencyToggle  } from '../components/settings';
+import { SettingsForm, ThemeToggle, CurrencyToggle } from '../components/settings';
 import { getCurrentUser } from '../api/users';
+import type { User } from '../types/types';
 
 export const Settings = () => {
   const dispatch = useAppDispatch();
-  const { 
-    currentSettings, 
-    loading, 
-    error,
-    passwordVerified 
-  } = useAppSelector((state) => state.settings);
-  
-  const [currentUser, setCurrentUser] = useState<any>(null);
+  const { currentSettings, loading, error } = useAppSelector((state) => state.settings);
+
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [editMode, setEditMode] = useState(false);
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
@@ -29,10 +24,11 @@ export const Settings = () => {
     const token = localStorage.getItem('token');
     if (token) {
       getCurrentUser(token).then(user => {
-        setCurrentUser(user);
+        if (!user) return;
+        setCurrentUser({ ...user, id: Number(user.id) }); // 👈 приведение id к числу
         setName(user.name);
         setEmail(user.email);
-        dispatch(fetchUserSettings(user.id));
+        dispatch(fetchUserSettings(Number(user.id)));
       });
     }
   }, [dispatch]);
@@ -44,41 +40,26 @@ export const Settings = () => {
     }
   }, [currentSettings, currentUser]);
 
-  const handlePasswordVerification = async () => {
-    if (!currentUser) return false;
-    
-    const result = await dispatch(verifyPassword({
-      email: currentUser.email,
-      password
-    })).unwrap();
-
-    return result;
-  };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSuccess('');
     dispatch(clearPasswordVerification());
 
-    try {
-      // Verify password first
-      const isValid = await handlePasswordVerification();
-      if (!isValid) {
-        throw new Error('Invalid password');
-      }
+    if (!currentUser) return;
 
-      // Update settings
-      await dispatch(updateSettings({
-        userId: currentUser.id,
+    try {
+      await dispatch(updateSecureSettings({
+        userId: Number(currentUser.id), 
+        email: currentUser.email,
         settings: { name, email },
         password
       })).unwrap();
-      
+
       setSuccess('Settings updated successfully');
       setEditMode(false);
       setPassword('');
-    } catch (err) {
-      // Error is already handled by Redux slice
+    } catch {
+      // Ошибка обрабатывается в slice
     }
   };
 
@@ -97,7 +78,7 @@ export const Settings = () => {
   return (
     <div className="max-w-md mx-auto mt-8 p-6 bg-white dark:bg-gray-800 text-black dark:text-white border border-gray-200 dark:border-gray-700 rounded-lg shadow-md transition-colors duration-300 sm:p-8">
       <h2 className="text-2xl font-bold text-center mb-6">User Settings</h2>
-      
+
       <SettingsForm
         currentUser={currentUser}
         editMode={editMode}
