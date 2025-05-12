@@ -2,7 +2,7 @@
   "transactions": [
     {
       "id": 4,
-      "user_id": [
+      "account_id": [
         1
       ],
       "amount": 2472457,
@@ -20,7 +20,7 @@
     },
     {
       "id": 5,
-      "user_id": [
+      "account_id": [
         1
       ],
       "amount": 131231211111,
@@ -34,7 +34,7 @@
     },
     {
       "id": 6,
-      "user_id": [
+      "account_id": [
         1
       ],
       "amount": 13132313111,
@@ -48,7 +48,7 @@
     },
     {
       "id": 10,
-      "user_id": [
+      "account_id": [
         1
       ],
       "amount": 1919,
@@ -63,7 +63,7 @@
     },
     {
       "id": 11,
-      "user_id": [
+      "account_id": [
         1
       ],
       "amount": 11111,
@@ -77,7 +77,7 @@
     },
     {
       "id": 12,
-      "user_id": [
+      "account_id": [
         1
       ],
       "amount": 1212112,
@@ -95,7 +95,7 @@
     },
     {
       "id": 13,
-      "user_id": [
+      "account_id": [
         1
       ],
       "amount": 123123123,

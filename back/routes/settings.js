@@ -14,8 +14,6 @@ router.get('/user/:userId', (req, res) => {
   const userId = parseInt(req.params.userId);
   const userSettings = settings.find(s => s.user_id === userId) || {
     user_id: userId,
-    currency: 'KZT',
-    language: 'en',
     theme: 'dark',
   };
   

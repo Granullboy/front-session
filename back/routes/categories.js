@@ -14,22 +14,22 @@ router.get('/', (req, res) => {
   res.json(categories);
 });
 
-router.get('/user/:userId', (req, res) => {
-  const userId = parseInt(req.params.userId);
-  const userCategories = categories.filter(category => 
-    category.user_id.includes(userId)
+router.get('/account/:accountId', (req, res) => {
+  const accountId = parseInt(req.params.accountId);
+  const accountCategories = categories.filter(category => 
+    category.account_id.includes(accountId)
   );
   
-  res.json(userCategories);
+  res.json(accountCategories);
 });
 
 router.get('/category/:categoryId', (req, res) => {
   const categoryId = parseInt(req.params.categoryId);
-  const userCategories = categories.filter(category => 
+  const accountCategories = categories.filter(category => 
     category.category_id.includes(categoryId)
   );
   
-  res.json(userCategories);
+  res.json(accountCategories);
 });
 
 router.get('/:id', (req, res) => {
@@ -42,11 +42,11 @@ router.get('/:id', (req, res) => {
 
 // POST new category
 router.post('/new-category', (req, res) => {
-  const { user_id, name, icon, color, type } = req.body;
+  const { account_id, name, icon, color, type } = req.body;
   lastId = lastId + 1
   const newCategory = {
     id: lastId,
-    user_id: Array.isArray(user_id) ? user_id : [],
+    account_id: Array.isArray(account_id) ? account_id : [],
     name,
     icon,
     color,
@@ -64,8 +64,8 @@ router.put('/update/:id', (req, res) => {
   const category = categories.find(b => b.id === category_id);
   if (!category) return res.status(404).json({ message: 'Category not found' });
 
-  const { user_id, amount, type } = req.body;
-  category.user_id = Array.isArray(user_id) ? user_id : category.user_id;
+  const { account_id, amount, type } = req.body;
+  category.account_id = Array.isArray(account_id) ? account_id : category.account_id;
   category.amount = amount || category.amount;
   category.type = type || category.type;
   category.category_id = Array.isArray(category_id) ? category_id : category.category_id;

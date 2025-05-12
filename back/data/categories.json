@@ -2,7 +2,7 @@
   "categories": [
     {
       "id": 1,
-      "user_id": [
+      "account_id": [
         1
       ],
       "name": "Test",
@@ -13,7 +13,7 @@
     },
     {
       "id": 2,
-      "user_id": [
+      "account_id": [
         1
       ],
       "name": "Home",
@@ -24,7 +24,7 @@
     },
     {
       "id": 3,
-      "user_id": [
+      "account_id": [
         1
       ],
       "name": "Work",
@@ -34,7 +34,7 @@
     },
     {
       "id": 4,
-      "user_id": [
+      "account_id": [
         1
       ],
       "name": "Gym",
@@ -44,7 +44,7 @@
     },
     {
       "id": 5,
-      "user_id": [
+      "account_id": [
         1
       ],
       "name": "Work",
@@ -54,14 +54,24 @@
     },
     {
       "id": 6,
-      "user_id": [
+      "account_id": [
         1
       ],
       "name": "AAA",
       "color": "#000000",
       "type": "income",
       "createdAt": "2025-05-12T02:27:44.609Z"
+    },
+    {
+      "id": 7,
+      "account_id": [
+        1
+      ],
+      "name": "Aboba",
+      "color": "#ffffff",
+      "type": "expense",
+      "createdAt": "2025-05-12T03:31:45.390Z"
     }
   ],
-  "lastId": 6
+  "lastId": 7
 }
