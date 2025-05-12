@@ -21,6 +21,7 @@ export const Layout = () => {
           {currentUser ? (
             <>
               <button className="px-2 py-3 bg-gray-200 text-black dark:bg-gray-800 dark:text-white rounded hover:bg-gray-300 dark:hover:bg-gray-700 transition" onClick={() => navigate('/dashboard')}>Dashboard</button>
+              <button className="px-2 py-3 bg-gray-200 text-black dark:bg-gray-800 dark:text-white rounded hover:bg-gray-300 dark:hover:bg-gray-700 transition" onClick={() => navigate('/category')}>Category</button>
               <button className="px-2 py-3 bg-gray-200 text-black dark:bg-gray-800 dark:text-white rounded hover:bg-gray-300 dark:hover:bg-gray-700 transition" onClick={() => navigate('/stats')}>Statistics</button>
               <button className="px-2 py-3 bg-gray-200 text-black dark:bg-gray-800 dark:text-white rounded hover:bg-gray-300 dark:hover:bg-gray-700 transition" onClick={() => navigate('/settings')}>Settings</button>
               <button className="px-2 py-3 bg-gray-200 text-black dark:bg-gray-800 dark:text-white rounded hover:bg-gray-300 dark:hover:bg-gray-700 transition" onClick={() => navigate('/logout')}>Logout</button>
