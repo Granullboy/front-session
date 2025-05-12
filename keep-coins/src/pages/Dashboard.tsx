@@ -15,7 +15,7 @@ export const Dashboard = () => {
   const [showForm, setShowForm] = useState(false);
   const [type, setType] = useState<'income' | 'expense'>('income');
   const [amount, setAmount] = useState('');
-  const [category, setCategory] = useState('');
+  const [category, setCategory] = useState<number[]>([]);
   const [comment, setComment] = useState('');
 
   const userId = token ? JSON.parse(atob(token.split('.')[1])).id : null;
@@ -41,7 +41,7 @@ export const Dashboard = () => {
       user_id: [userId],
       amount: parseFloat(amount),
       type,
-      category_id: [parseInt(category)],
+      category_id: category,
       comment,
       date: new Date().toISOString().split('T')[0],
     };
@@ -54,7 +54,7 @@ export const Dashboard = () => {
     }
 
     setAmount('');
-    setCategory('');
+    setCategory([]);
     setComment('');
     setType('income');
     setShowForm(false);

@@ -11,7 +11,9 @@ import { ProtectedRoute } from './components/ProtectedRoute';
 import { ThemeProvider } from './components/theme/ThemeProvider';
 import { Provider } from 'react-redux';
 import { store } from './redux/store';
-
+import { TransactionDetail } from './pages/TransactionDetail';
+import { EditTransaction } from './pages/EditTransaction';
+import { CategoryPage } from './pages/CategoryPage';
 
 const router = createBrowserRouter([
   {
@@ -21,18 +23,22 @@ const router = createBrowserRouter([
       { path: 'login', element: <Login /> },
       { path: 'logout', element: <Logout /> },
       { path: 'register', element: <Register /> },
-      { 
-        element: <ProtectedRoute />, // Перенаправление не авторизированых пользователей
+      { path: 'settings', element: <CategoryPage /> },
+      {
+        element: <ProtectedRoute />,
         children: [
           { index: true, element: <HomePage /> },
           { path: 'dashboard', element: <Dashboard /> },
+          { path: 'dashboard/:id', element: <TransactionDetail /> }, // 👈 добавь это
           { path: 'stats', element: <Stats /> },
           { path: 'settings', element: <Settings /> },
-        ]
+          { path: 'edit-transaction/:id', element: <EditTransaction /> },
+        ],
       },
     ],
   },
 ]);
+
 
 export const App = () => {
   return (
