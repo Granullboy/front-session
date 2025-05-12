@@ -16,7 +16,7 @@ router.get('/user/:userId', (req, res) => {
     user_id: userId,
     currency: 'KZT',
     language: 'en',
-    theme: 'dark'
+    theme: 'dark',
   };
   
   res.json(userSettings);

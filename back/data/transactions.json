@@ -83,7 +83,21 @@
       "comment": "11",
       "date": "2025-05-11",
       "createdAt": "2025-05-11T22:10:08.474Z"
+    },
+    {
+      "id": 7,
+      "user_id": [
+        1
+      ],
+      "amount": 123,
+      "type": "income",
+      "category_id": [
+        2
+      ],
+      "comment": "123",
+      "date": "2025-05-12",
+      "createdAt": "2025-05-12T00:07:02.236Z"
     }
   ],
-  "lastId": 6
+  "lastId": 7
 }
