@@ -2,7 +2,7 @@
   "categories": [
     {
       "id": 1,
-      "account_id": [
+      "user_id": [
         1
       ],
       "name": "Test",
@@ -13,7 +13,7 @@
     },
     {
       "id": 2,
-      "account_id": [
+      "user_id": [
         1
       ],
       "name": "Home",
@@ -24,7 +24,7 @@
     },
     {
       "id": 3,
-      "account_id": [
+      "user_id": [
         1
       ],
       "name": "Work",
@@ -34,7 +34,7 @@
     },
     {
       "id": 4,
-      "account_id": [
+      "user_id": [
         1
       ],
       "name": "Gym",
@@ -44,7 +44,7 @@
     },
     {
       "id": 5,
-      "account_id": [
+      "user_id": [
         1
       ],
       "name": "Work",
@@ -54,7 +54,7 @@
     },
     {
       "id": 6,
-      "account_id": [
+      "user_id": [
         1
       ],
       "name": "AAA",
@@ -64,7 +64,7 @@
     },
     {
       "id": 7,
-      "account_id": [
+      "user_id": [
         1
       ],
       "name": "Aboba",

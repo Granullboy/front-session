@@ -14,22 +14,22 @@ router.get('/', (req, res) => {
   res.json(transactions);
 });
 
-router.get('/account/:accountId', (req, res) => {
-  const accountId = parseInt(req.params.accountId);
-  const accountTransactions = transactions.filter(transaction => 
-    transaction.account_id.includes(accountId)
+router.get('/user/:userId', (req, res) => {
+  const userId = parseInt(req.params.userId);
+  const userTransactions = transactions.filter(transaction => 
+    transaction.user_id.includes(userId)
   );
   
-  res.json(accountTransactions);
+  res.json(userTransactions);
 });
 
 router.get('/category/:categoryId', (req, res) => {
   const categoryId = parseInt(req.params.categoryId);
-  const accountTransactions = transactions.filter(transaction => 
+  const userTransactions = transactions.filter(transaction => 
     transaction.category_id.includes(categoryId)
   );
   
-  res.json(accountTransactions);
+  res.json(userTransactions);
 });
 
 router.get('/:id', (req, res) => {
@@ -42,11 +42,11 @@ router.get('/:id', (req, res) => {
 
 // POST new transaction
 router.post('/new-transaction', (req, res) => {
-  const { account_id, amount, type, category_id, comment, date } = req.body;
+  const { user_id, amount, type, category_id, comment, date } = req.body;
   lastId = lastId + 1
   const newTransaction = {
     id: lastId,
-    account_id: Array.isArray(account_id) ? account_id : [],
+    user_id: Array.isArray(user_id) ? user_id : [],
     amount,
     type,
     category_id: Array.isArray(category_id) ? category_id : [],
@@ -65,8 +65,8 @@ router.put('/update/:id', (req, res) => {
   const transaction = transactions.find(b => b.id === transaction_id);
   if (!transaction) return res.status(404).json({ message: 'Transaction not found' });
 
-  const { account_id, amount, type, category_id, comment, date } = req.body;
-  transaction.account_id = Array.isArray(account_id) ? account_id : transaction.account_id;
+  const { user_id, amount, type, category_id, comment, date } = req.body;
+  transaction.user_id = Array.isArray(user_id) ? user_id : transaction.user_id;
   transaction.amount = amount || transaction.amount;
   transaction.type = type || transaction.type;
   transaction.category_id = Array.isArray(category_id) ? category_id : transaction.category_id;

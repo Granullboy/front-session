@@ -10,19 +10,19 @@ function getFreshData() {
 }
 
 // GET статистика для пользователя
-router.get('/account/:accountId', (req, res) => {
+router.get('/user/:userId', (req, res) => {
   const { transactions, categories } = getFreshData();
-  const accountId = parseInt(req.params.accountId);
+  const userId = parseInt(req.params.userId);
   
-  const accountTransactions = transactions.filter(t => t.account_id.includes(accountId));
-  const accountCategories = categories.filter(c => c.account_id.includes(accountId));
+  const userTransactions = transactions.filter(t => t.user_id.includes(userId));
+  const userCategories = categories.filter(c => c.user_id.includes(userId));
   
   // Рассчитать общие доходы и расходы
-  const income = accountTransactions
+  const income = userTransactions
     .filter(t => t.type === 'income')
     .reduce((sum, t) => sum + t.amount, 0);
   
-  const expenses = accountTransactions
+  const expenses = userTransactions
     .filter(t => t.type === 'expense')
     .reduce((sum, t) => sum + t.amount, 0);
   
@@ -30,8 +30,8 @@ router.get('/account/:accountId', (req, res) => {
   const balance = income - expenses;
   
   // Группировать по категориям
-  const categoryStats = accountCategories.map(category => {
-    const catTransactions = accountTransactions.filter(t => 
+  const categoryStats = userCategories.map(category => {
+    const catTransactions = userTransactions.filter(t => 
       t.category_id.includes(category.id)
     );
     
@@ -49,13 +49,13 @@ router.get('/account/:accountId', (req, res) => {
   });
   
   res.json({
-    account_id: accountId,
+    user_id: userId,
     balance,
     total_income: income,
     total_expenses: expenses,
-    transaction_count: accountTransactions.length,
+    transaction_count: userTransactions.length,
     category_stats: categoryStats,
-    recent_transactions: accountTransactions
+    recent_transactions: userTransactions
       .sort((a, b) => new Date(b.date) - new Date(a.date))
       .slice(0, 5)
   });
@@ -111,14 +111,14 @@ router.get('/category/:categoryIds', (req, res) => {
 });
 
 // GET статистика по определенной категории по конкретному пользователю
-router.post('/account/categories', (req, res) => {
+router.post('/user/categories', (req, res) => {
   const { transactions, categories } = getFreshData();
-  const { accountId, categoryIds } = req.body;
+  const { userId, categoryIds } = req.body;
   
-  // Проверить наличие accountId и categoryIds в теле запроса
-  if (!accountId || !categoryIds) {
+  // Проверить наличие userId и categoryIds в теле запроса
+  if (!userId || !categoryIds) {
     return res.status(400).json({ 
-      message: 'accountId and categoryIds are required in the request body' 
+      message: 'userId and categoryIds are required in the request body' 
     });
   }
   
@@ -143,7 +143,7 @@ router.post('/account/categories', (req, res) => {
   const categoryStats = categoryIdsArray.map(categoryId => {
     const category = categories.find(c => c.id === categoryId);
     const catTransactions = transactions.filter(t => 
-      t.category_id.includes(categoryId) && t.account_id === accountId
+      t.category_id.includes(categoryId) && t.user_id === userId
     );
     
     const catTotal = catTransactions.reduce((sum, t) => sum + t.amount, 0);
@@ -161,7 +161,7 @@ router.post('/account/categories', (req, res) => {
   
   // Рассчитать общие итоги
   const combinedStats = {
-    account_id: accountId,
+    user_id: userId,
     total_amount: categoryStats.reduce((sum, cat) => sum + cat.total_amount, 0),
     transaction_count: categoryStats.reduce((sum, cat) => sum + cat.transaction_count, 0),
     categories: categoryStats
@@ -170,21 +170,21 @@ router.post('/account/categories', (req, res) => {
   res.json(combinedStats);
 });
 
-router.get('/account/:accountId/transactions-by-month', (req, res) => {
+router.get('/user/:userId/transactions-by-month', (req, res) => {
   const { transactions, categories } = getFreshData();
-  const accountId = parseInt(req.params.accountId);
+  const userId = parseInt(req.params.userId);
 
   // Фильтруем транзакции по пользователю
-  const accountTransactions = transactions.filter(t => t.account_id === accountId);
+  const userTransactions = transactions.filter(t => t.user_id === userId);
 
-  if (accountTransactions.length === 0) {
+  if (userTransactions.length === 0) {
     return res.status(404).json({ 
-      message: 'No transactions found for this account'
+      message: 'No transactions found for this user'
     });
   }
 
   // Группируем транзакции по месяцам
-  const transactionsByMonth = accountTransactions.reduce((acc, transaction) => {
+  const transactionsByMonth = userTransactions.reduce((acc, transaction) => {
     const date = new Date(transaction.date);
     const monthYear = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
     
@@ -233,9 +233,9 @@ router.get('/account/:accountId/transactions-by-month', (req, res) => {
   result.sort((a, b) => new Date(b.month) - new Date(a.month));
 
   res.json({
-    account_id: accountId,
-    total_transactions: accountTransactions.length,
-    total_amount: accountTransactions.reduce((sum, t) => sum + t.amount, 0),
+    user_id: userId,
+    total_transactions: userTransactions.length,
+    total_amount: userTransactions.reduce((sum, t) => sum + t.amount, 0),
     months: result
   });
 });

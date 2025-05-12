@@ -18,7 +18,6 @@ app.use('/transactions', require('./routes/transactions'));
 app.use('/categories', require('./routes/categories'));
 app.use('/statistics', require('./routes/statistics'));
 app.use('/settings', require('./routes/settings'));
-app.use('/api/accounts', require('./routes/account'));
 
 const explonation = {
   "users": {
